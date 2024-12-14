@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "Content BlockBlockBlocker",
     "short_name": "BBBlocker",
-    "version": "0.1.1",
+    "version": "0.2.0",
     "description": "某○○ドットコムの過去問道場において広告ブロックが有効であっても解説をクリアに表示します．",
     "content_scripts": [
         {

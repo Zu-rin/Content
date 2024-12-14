@@ -1,11 +1,10 @@
+const baseURL = `${window.location.protocol}//${window.location.hostname}`
+
 const removeBlur = () => {
     target = document.getElementById("kaisetsu");
     ans = target.querySelector(".ansbg");
-    console.log(ans);
     noise = ans.getElementsByTagName("div")[0].children[0]
-    console.log(noise);
     noise.remove();
-    console.log(ans);
     ans.getElementsByTagName("div")[0].children[0].removeAttribute("style");
 }
 
@@ -36,15 +35,16 @@ const replaceExplain = (url, imagedir) => {
 
 const getExplainURL = () => {
     probremInfo = document.getElementById("mainCol").querySelector(".anslink").innerHTML;
-    year = probremInfo.match(/(?<year>\d*)年/)[1];
-    season = probremInfo.match(/(?<season>春|秋)/)[1] == "春" ? "haru" : "aki";
-    number = probremInfo.match(/問(?<number>\d*)/)[1];
-    // console.log(probremInfo);
-    // console.log("year", year);
-    // console.log("season", season);
-    // console.log("number", number);
-    url = `https://www.nw-siken.com/kakomon/${year.toString().padStart(2, '0')}_${season}/am2_${number}.html`;
-    imagedir = `https://www.nw-siken.com/kakomon/${year.toString().padStart(2, '0')}_${season}`;
+    params = probremInfo.match(/(?<year>\d*|元)年.*(?<season>春|秋).*問(?<number>\d*)<br>/).groups
+    year = params.year == "元" ? "01" : params.year.padStart(2, '0');
+    season = params.season == "春" ? "haru" : "aki";
+    number = params.number;
+    console.log(probremInfo);
+    console.log("year", year);
+    console.log("season", season);
+    console.log("number", number);
+    url = `${baseURL}/kakomon/${year}_${season}/am2_${number}.html`;
+    imagedir = `${baseURL}/kakomon/${year.toString().padStart(2, '0')}_${season}`;
     console.log(url);
     return [url, imagedir];
 }
